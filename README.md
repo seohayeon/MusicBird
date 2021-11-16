@@ -1,4 +1,4 @@
-# KotleBot
+# MusicBird
 Kotlin Discord Music Bot
 
 ## Skill
