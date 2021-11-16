@@ -13,10 +13,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import io.github.cdimascio.dotenv.dotenv
 import youtube.SearchAPI
 import youtube.SearchDTO
 import youtube.SearchResult
 import java.awt.Color
+
+val dotenv = dotenv()
+val youtube_token = dotenv["YOUTUBE_TOKEN"]
 
 class MessageEvent: ListenerAdapter() {
     var musiclist:List<SearchDTO> = arrayListOf()
@@ -50,7 +54,7 @@ class MessageEvent: ListenerAdapter() {
                 return
             }
             var q = command.substring(6)
-            server.getInfo("AIzaSyA1GGYn7jzoCDr3xg2zjBa-voP0d304oD0","snippet","5","KR",q).enqueue(object:
+            server.getInfo(youtube_token,"snippet","5","KR",q).enqueue(object:
                 Callback<SearchResult> {
                 override fun onResponse(call: Call<SearchResult>?, response: Response<SearchResult>?) {
                     val movieResponse  = response?.body()
