@@ -23,6 +23,8 @@ val dotenv = dotenv()
 val youtube_token = dotenv["YOUTUBE_TOKEN"]
 
 class MessageEvent: ListenerAdapter() {
+
+    private val manager:CommandManager = CommandManager();
     var musiclist:List<SearchDTO> = arrayListOf()
     var select = false
     override fun onMessageReceived(event: MessageReceivedEvent) {
