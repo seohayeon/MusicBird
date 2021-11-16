@@ -1,6 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.10'
     id 'java'
+    id 'application'
 }
 
 group 'com.pocript.discord'
@@ -28,3 +29,6 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+
+mainClassName = "MainKt"

@@ -44,8 +44,12 @@ class MessageEvent: ListenerAdapter() {
                 return
             }
             audioManager.openAudioConnection(voiceChannel)
+            
+            if(command.length < 7){
+                channel.sendMessage("검색어가 없습니다. '.play [노래제목]' 을 입력해주세요..").queue()
+                return
+            }
             var q = command.substring(6)
-
             server.getInfo("AIzaSyA1GGYn7jzoCDr3xg2zjBa-voP0d304oD0","snippet","5","KR",q).enqueue(object:
                 Callback<SearchResult> {
                 override fun onResponse(call: Call<SearchResult>?, response: Response<SearchResult>?) {
@@ -85,6 +89,22 @@ class MessageEvent: ListenerAdapter() {
                     )
                 )
 
+        }else if(command==".stop"){
+            val musicManager:GuildMusicManager? = PlayerManager.instance?.getMusicManager(channel.getGuild())
+            //musicManager?.scheduler?.stopTrack()
+        }else if(command==".skip"){
+            val musicManager:GuildMusicManager? = PlayerManager.instance?.getMusicManager(channel.getGuild())
+            musicManager?.scheduler?.nextTrack()
+        }else if(command==".pause"){
+            val musicManager:GuildMusicManager? = PlayerManager.instance?.getMusicManager(channel.getGuild())
+            musicManager?.scheduler?.pauseTrack()
+        }else if(command==".resume"){
+            val musicManager:GuildMusicManager? = PlayerManager.instance?.getMusicManager(channel.getGuild())
+            musicManager?.scheduler?.resumeTrack()
+        }else if(command==".prev"){
+            
+        }else if(command==".leave"){
+            
         }
 
     }

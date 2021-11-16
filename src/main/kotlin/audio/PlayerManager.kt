@@ -32,6 +32,7 @@ class PlayerManager {
                     .append(track.info.author)
                     .append('`')
                     .queue()
+                    println(track.info)
             }
 
             override fun playlistLoaded(playlist: AudioPlaylist) {
