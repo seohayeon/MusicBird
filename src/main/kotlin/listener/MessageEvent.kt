@@ -2,6 +2,8 @@ package listener
 
 import audio.GuildMusicManager
 import audio.PlayerManager
+import command.CommandManager
+import io.github.cdimascio.dotenv.dotenv
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
@@ -13,21 +15,23 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import io.github.cdimascio.dotenv.dotenv
 import youtube.SearchAPI
 import youtube.SearchDTO
 import youtube.SearchResult
 import java.awt.Color
+
 
 val dotenv = dotenv()
 val youtube_token = dotenv["YOUTUBE_TOKEN"]
 
 class MessageEvent: ListenerAdapter() {
 
-    private val manager:CommandManager = CommandManager();
+
     var musiclist:List<SearchDTO> = arrayListOf()
     var select = false
     override fun onMessageReceived(event: MessageReceivedEvent) {
+        //CommandManager().handleCommand(event);
+
         val retrofit = Retrofit.Builder()
             .baseUrl("https://www.googleapis.com/")
             .addConverterFactory(GsonConverterFactory.create())
