@@ -32,7 +32,7 @@ class CommandManager {
     fun handleCommand(event: MessageReceivedEvent) {
         val invoke = event.getMessage().getContentRaw()
         println(invoke)
-        if (commands.containsKey(invoke)) {
+        if (commands.containsKey(invoke.split(" ")[0])) {
             event.channel.sendTyping().queue()
             commands.get(invoke)?.handle(event)
         }

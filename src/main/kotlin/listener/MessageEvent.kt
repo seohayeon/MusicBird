@@ -30,7 +30,7 @@ class MessageEvent: ListenerAdapter() {
     var musiclist:List<SearchDTO> = arrayListOf()
     var select = false
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        //CommandManager().handleCommand(event);
+        CommandManager().handleCommand(event);
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://www.googleapis.com/")

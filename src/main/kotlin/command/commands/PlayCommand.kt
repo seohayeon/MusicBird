@@ -1,4 +1,4 @@
-package command.commands.music
+package command.commands
 
 import command.commands.ICommand
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
@@ -11,5 +11,5 @@ class PlayCommand : ICommand {
         println("zzzzzz")
     }
     override val help: String? = "명령어입니다"
-    override val invoke: String = "help"
+    override val invoke: String = ".help"
 }
