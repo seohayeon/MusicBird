@@ -1,11 +1,12 @@
 package command
 
-import command.commands.ICommand
-import command.commands.PingCommand
+//import command.commands.ICommand
+import command.commands.*
+//import command.commands.PlayCommand
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import org.jetbrains.annotations.NotNull
 import java.util.*
-
+import java.util.regex.Pattern
 
 class CommandManager {
     private val commands: HashMap<String, ICommand> = HashMap()
@@ -13,6 +14,11 @@ class CommandManager {
     init {
             println("Loading commands")
             addCommand(PingCommand())
+            addCommand(PlayCommand())
+            addCommand(PauseCommand())
+            addCommand(SkipCommand())
+            addCommand(ResumeCommand())
+            addCommand(StopCommand())
     }
 
     private fun addCommand(command: ICommand) {
@@ -30,9 +36,13 @@ class CommandManager {
     }
 
     fun handleCommand(event: MessageReceivedEvent) {
-        val invoke = event.getMessage().getContentRaw()
-        println(invoke)
-        if (commands.containsKey(invoke.split(" ")[0])) {
+        var prefix = "."
+        val split: List<String> = event.getMessage().getContentRaw()
+                .replaceFirst(prefix, "")
+                .split("\\s+".toRegex());
+        val invoke = split[0].toLowerCase()
+        
+        if (commands.containsKey(invoke)) {
             event.channel.sendTyping().queue()
             commands.get(invoke)?.handle(event)
         }
